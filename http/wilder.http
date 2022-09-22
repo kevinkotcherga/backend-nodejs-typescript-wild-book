@@ -1,0 +1,52 @@
+// GET ALL WILDERS
+GET http://localhost:5000/api/wilders
+
+###
+// GET ONE WILDER
+GET http://localhost:5000/api/wilders/2
+
+###
+// CREATE WILDER
+POST http://localhost:5000/api/wilders
+Content-Type: application/json
+
+{ "name": "Martine", "city": "Montpellier" }
+
+###
+// UPDATE WILDER
+PUT http://localhost:5000/api/wilders/2
+Content-Type: application/json
+
+{ "name": "Elodie" }
+
+###
+// ADD SKILLS TO WILDER
+PUT http://localhost:5000/api/wilders/3
+Content-Type: application/json
+
+{
+  "name": "Tom",
+  "skills": [{ "id": 1 },{ "id": 2 }]
+}
+
+### 1 by 1
+
+POST http://localhost:5000/api/wilders/6/skills
+Content-Type: application/json
+
+{
+  "skillId": [2]
+}
+
+### Multiple skills at once
+
+POST http://localhost:5000/api/wilders/1/skills
+Content-Type: application/json
+
+{
+  "skillsIds": [2, 3]
+}
+
+###
+// DELETE WILDER
+DELETE http://localhost:5000/api/wilders/1
