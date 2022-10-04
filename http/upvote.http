@@ -5,3 +5,6 @@ Content-Type: application/json
 
 ###
 PUT http://localhost:5000/api/upvotes/2/upvote
+
+###
+PUT http://localhost:5000/api/upvotes/2/negativevote

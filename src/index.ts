@@ -64,6 +64,10 @@ app.put(
 	'/api/upvotes/:upvoteId/upvote',
 	asyncHandler(upvotesController.upvote),
 );
+app.put(
+	'/api/upvotes/:upvoteId/negativevote',
+	asyncHandler(upvotesController.negativevote),
+);
 
 app.listen(5000, async () => {
 	console.log('Server started, youpi!');

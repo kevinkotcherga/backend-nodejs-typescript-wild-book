@@ -1,5 +1,6 @@
 import datasource from '../utils';
 import { Request, Response } from 'express';
+import { Upvote } from '../entities/Upvote';
 
 export default {
 	create: async (req: Request, res: Response): Promise<void> => {
@@ -24,11 +25,11 @@ export default {
 		}
 	},
 	upvote: async (req: Request, res: Response): Promise<void> => {
-		const repository = datasource.getRepository('Upvote');
+		const repository = datasource.getRepository(Upvote);
 
 		const exitingUpvote = await repository.findOne({
 			where: {
-				id: req.params.upvoteId,
+				id: Number(req.params.upvoteId),
 			},
 		});
 
@@ -41,5 +42,31 @@ export default {
 		} else {
 			throw new Error('Doest not exist');
 		}
+	},
+  	negativevote: async (req: Request, res: Response): Promise<void> => {
+		const repository = datasource.getRepository(Upvote);
+
+		const exitingUpvote = await repository.findOne({
+			where: {
+				id: Number(req.params.upvoteId),
+			},
+		});
+
+		if (exitingUpvote !== null) {
+			exitingUpvote.upvote --;
+
+			await repository.save(exitingUpvote);
+
+			res.json(exitingUpvote);
+		} else {
+			throw new Error('Doest not exist');
+		}
+	},
+  delete: async (req: Request, res: Response): Promise<void> => {
+		const repository = datasource.getRepository(Upvote);
+		const skillId = req.params.skillId;
+		await repository.query('DELETE FROM skill WHERE id=?', [skillId]).then(data => {
+			res.json(data);
+		});
 	},
 };
